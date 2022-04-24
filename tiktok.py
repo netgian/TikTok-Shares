@@ -20,12 +20,14 @@ class Tiktok:
         }
         device_id = "".join(random.choices(string.digits, k=19))
         url = f"https://api31-core-useast1a.tiktokv.com/aweme/v1/aweme/stats/?channel=googleplay&device_type=G011A&device_id={device_id}&os_version=7.1.2&version_code=220400&app_name=musically_go&device_platform=android&aid=1988"
-
-        r = session.post(url, headers=headers, data=payload)
-
-        if r.status_code == 200:
-            self.shares += 1
-            print(f"[+]Shares count: {self.shares}", end="\r")
+        try:
+            r = session.post(url, headers=headers, data=payload)
+    
+            if r.status_code == 200:
+                self.shares += 1
+                print(f"[+]Shares count: {self.shares}", end="\r")
+        except Exception as e:
+            print(f"[-]An error ocurred: {e}")
 
     @staticmethod
     def get_video_id(url):
